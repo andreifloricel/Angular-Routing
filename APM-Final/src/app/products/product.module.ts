@@ -45,4 +45,4 @@ import { ProductEditGuard } from './product-edit/product-edit.guard';
     ProductEditTagsComponent
   ]
 })
-export class ProductModule { }
+export class ProductModule {}

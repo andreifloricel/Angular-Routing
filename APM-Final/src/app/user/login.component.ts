@@ -11,8 +11,7 @@ export class LoginComponent {
   errorMessage: string;
   pageTitle = 'Log In';
 
-  constructor(private authService: AuthService,
-              private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   login(loginForm: NgForm) {
     if (loginForm && loginForm.valid) {

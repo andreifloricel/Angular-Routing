@@ -16,8 +16,6 @@ import { MessageComponent } from './message.component';
       }
     ])
   ],
-  declarations: [
-    MessageComponent
-  ]
+  declarations: [MessageComponent]
 })
-export class MessageModule { }
+export class MessageModule {}

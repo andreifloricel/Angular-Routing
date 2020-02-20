@@ -13,7 +13,7 @@ export class ProductEditInfoComponent implements OnInit {
   errorMessage: string;
   product: Product;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.parent.data.subscribe(data => {
@@ -24,5 +24,4 @@ export class ProductEditInfoComponent implements OnInit {
       this.product = data['resolvedData'].product;
     });
   }
-
 }

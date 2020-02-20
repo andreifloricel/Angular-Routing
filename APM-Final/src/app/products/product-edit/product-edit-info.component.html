@@ -1,26 +1,27 @@
 <div class="card-body">
-  <form novalidate
-        #productForm="ngForm">
+  <form novalidate #productForm="ngForm">
     <fieldset>
       <legend>Basic Product Information</legend>
 
       <div class="form-group row">
-        <label class="col-md-2 col-form-label"
-               for="productNameId">Product Name</label>
+        <label class="col-md-2 col-form-label" for="productNameId">Product Name</label>
         <div class="col-md-8">
-          <input class="form-control"
-                 id="productNameId"
-                 type="text"
-                 placeholder="Name (required)"
-                 required
-                 minlength="3"
-                 [(ngModel)]=product.productName
-                 name="productName"
-                 #productNameVar="ngModel"
-                 [ngClass]="{'is-invalid': (productNameVar.touched || 
-                                            productNameVar.dirty ||
-                                            product.id !== 0) && 
-                                            !productNameVar.valid }" />
+          <input
+            class="form-control"
+            id="productNameId"
+            type="text"
+            placeholder="Name (required)"
+            required
+            minlength="3"
+            [(ngModel)]="product.productName"
+            name="productName"
+            #productNameVar="ngModel"
+            [ngClass]="{
+              'is-invalid':
+                (productNameVar.touched || productNameVar.dirty || product.id !== 0) &&
+                !productNameVar.valid
+            }"
+          />
           <span class="invalid-feedback">
             <span *ngIf="productNameVar.errors?.required">
               Product name is required.
@@ -33,21 +34,23 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-md-2 col-form-label"
-               for="productCodeId">Product Code</label>
+        <label class="col-md-2 col-form-label" for="productCodeId">Product Code</label>
         <div class="col-md-8">
-          <input class="form-control"
-                 id="productCodeId"
-                 type="text"
-                 placeholder="Code (required)"
-                 required
-                 [(ngModel)]=product.productCode
-                 name="productCode"
-                 #productCodeVar="ngModel"
-                 [ngClass]="{'is-invalid': (productCodeVar.touched || 
-                                            productCodeVar.dirty ||
-                                            product.id !== 0) &&
-                                            !productCodeVar.valid }" />
+          <input
+            class="form-control"
+            id="productCodeId"
+            type="text"
+            placeholder="Code (required)"
+            required
+            [(ngModel)]="product.productCode"
+            name="productCode"
+            #productCodeVar="ngModel"
+            [ngClass]="{
+              'is-invalid':
+                (productCodeVar.touched || productCodeVar.dirty || product.id !== 0) &&
+                !productCodeVar.valid
+            }"
+          />
           <span class="invalid-feedback">
             <span *ngIf="productCodeVar.errors?.required">
               Product code is required.
@@ -57,21 +60,20 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-md-2 col-form-label"
-               for="descriptionId">Description</label>
+        <label class="col-md-2 col-form-label" for="descriptionId">Description</label>
         <div class="col-md-8">
-          <textarea class="form-control"
-                    id="descriptionId"
-                    placeholder="Description"
-                    rows=3
-                    [(ngModel)]=product.description
-                    name="description"></textarea>
+          <textarea
+            class="form-control"
+            id="descriptionId"
+            placeholder="Description"
+            rows="3"
+            [(ngModel)]="product.description"
+            name="description"
+          ></textarea>
         </div>
       </div>
     </fieldset>
   </form>
 </div>
 
-<div class='alert alert-danger'
-     *ngIf='errorMessage'>{{errorMessage}}
-</div>
+<div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>

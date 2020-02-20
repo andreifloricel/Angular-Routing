@@ -27,8 +27,7 @@ export class ProductListComponent implements OnInit {
   filteredProducts: Product[] = [];
   products: Product[] = [];
 
-  constructor(private productService: ProductService,
-              private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.listFilter = this.route.snapshot.queryParamMap.get('filterBy') || '';
@@ -39,18 +38,18 @@ export class ProductListComponent implements OnInit {
         this.products = products;
         this.filteredProducts = this.performFilter(this.listFilter);
       },
-      error: err => this.errorMessage = err
+      error: err => (this.errorMessage = err)
     });
   }
 
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.products.filter((product: Product) =>
-      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    return this.products.filter(
+      (product: Product) => product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1
+    );
   }
 
   toggleImage(): void {
     this.showImage = !this.showImage;
   }
-
 }

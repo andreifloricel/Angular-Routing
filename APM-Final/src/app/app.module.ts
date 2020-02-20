@@ -26,11 +26,7 @@ import { MessageModule } from './messages/message.module';
     MessageModule,
     AppRoutingModule
   ],
-  declarations: [
-    AppComponent,
-    WelcomeComponent,
-    PageNotFoundComponent
-  ],
+  declarations: [AppComponent, WelcomeComponent, PageNotFoundComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

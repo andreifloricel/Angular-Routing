@@ -14,7 +14,7 @@ export class AuthService {
     return !!this.currentUser;
   }
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService) {}
 
   login(userName: string, password: string): void {
     if (!userName || !password) {
