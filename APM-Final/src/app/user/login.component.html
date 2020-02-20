@@ -17,6 +17,7 @@
               required
               ngModel
               name="userName"
+              autocomplete="username"
               #userNameVar="ngModel"
               [ngClass]="{
                 'is-invalid': (userNameVar.touched || userNameVar.dirty) && !userNameVar.valid
@@ -41,6 +42,7 @@
               placeholder="Password (required)"
               required
               ngModel
+              autocomplete="current-password"
               name="password"
               #passwordVar="ngModel"
               [ngClass]="{

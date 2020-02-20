@@ -40,6 +40,8 @@ export class ProductEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //get from DB async
+
     this.route.data.subscribe(data => {
       const resolvedData: ProductResolved = data['resolvedData'];
       this.errorMessage = resolvedData.error;

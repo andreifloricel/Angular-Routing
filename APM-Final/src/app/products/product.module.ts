@@ -10,6 +10,8 @@ import { ProductResolver } from './product-resolver.service';
 
 import { SharedModule } from '../shared/shared.module';
 import { ProductEditGuard } from './product-edit/product-edit.guard';
+import { AuthGuard } from '../user/auth.guard';
+import { EditRightsGuard } from '../user/edit-rights.guard';
 
 @NgModule({
   imports: [
@@ -27,8 +29,14 @@ import { ProductEditGuard } from './product-edit/product-edit.guard';
       {
         path: ':id/edit',
         component: ProductEditComponent,
+        // AFL
+        // canActivate: [EditRightsGuard],
+        // canActivateChild: [EditRightsGuard],
+
         canDeactivate: [ProductEditGuard],
+
         resolve: { resolvedData: ProductResolver },
+
         children: [
           { path: '', redirectTo: 'info', pathMatch: 'full' },
           { path: 'info', component: ProductEditInfoComponent },
@@ -45,4 +53,6 @@ import { ProductEditGuard } from './product-edit/product-edit.guard';
     ProductEditTagsComponent
   ]
 })
-export class ProductModule {}
+export class ProductModule {
+  sensitiveData = '$$$ HIGHLY_SECRET $$$';
+}

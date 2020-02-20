@@ -5,12 +5,20 @@ import {
   NavigationStart,
   NavigationEnd,
   NavigationError,
-  NavigationCancel
+  NavigationCancel,
+  RouterEvent,
+  RouteConfigLoadStart,
+  RouteConfigLoadEnd,
+  ChildActivationStart,
+  ChildActivationEnd,
+  ActivationEnd,
+  ActivationStart
 } from '@angular/router';
 
 import { AuthService } from './user/auth.service';
 import { slideInAnimation } from './app.animation';
 import { MessageService } from './messages/message.service';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'pm-root',
@@ -19,7 +27,7 @@ import { MessageService } from './messages/message.service';
   animations: [slideInAnimation]
 })
 export class AppComponent {
-  pageTitle = 'Acme Product Management';
+  pageTitle = 'msg Product Management';
   loading = true;
 
   get isLoggedIn(): boolean {
@@ -42,14 +50,80 @@ export class AppComponent {
     private router: Router,
     private messageService: MessageService
   ) {
-    router.events.subscribe((routerEvent: Event) => {
-      this.logEvent(routerEvent);
-      this.checkRouterEvent(routerEvent);
-    });
+    router.events
+      .pipe(
+        map(event => {
+          const isRouterEvent = event instanceof RouterEvent;
+          const isRouteConfigEvent =
+            event instanceof RouteConfigLoadStart || event instanceof RouteConfigLoadEnd;
+          const isActivationEvent =
+            event instanceof ActivationStart || event instanceof ActivationEnd;
+          const isChildActivationEvent =
+            event instanceof ChildActivationStart || event instanceof ChildActivationEnd;
+
+          return {
+            event,
+            isRouterEvent,
+            isRouteConfigEvent,
+            isActivationEvent,
+            isChildActivationEvent
+          };
+        }),
+        filter(eventInfo => {
+          return true;
+        })
+      )
+      .subscribe(eventInfo => {
+        this.logEvent(eventInfo, true);
+        this.checkRouterEvent(eventInfo.event);
+      });
   }
 
-  logEvent(routerEvent: Event) {
-    console.log(routerEvent);
+  logEvent(
+    {
+      event,
+      isRouterEvent,
+      isRouteConfigEvent,
+      isActivationEvent,
+      isChildActivationEvent
+    }: {
+      event: Event;
+      isRouterEvent;
+      isRouteConfigEvent;
+      isActivationEvent;
+      isChildActivationEvent;
+    },
+    verbose: boolean
+  ) {
+    const eventColor = this.getConsoleColor(
+      event,
+      isRouterEvent,
+      isRouteConfigEvent,
+      isActivationEvent,
+      isChildActivationEvent
+    );
+
+
+    false &&  console.log(`%c${event}`, `color:${eventColor}`);
+
+  }
+
+  private getConsoleColor(
+    event: Event,
+    isRouterEvent: any,
+    isRouteConfigEvent: any,
+    isActivationEvent: any,
+    isChildActivationEvent: any
+  ) {
+    return isRouterEvent
+      ? 'blue'
+      : isRouteConfigEvent
+      ? 'cyan'
+      : isActivationEvent
+      ? 'green'
+      : isChildActivationEvent
+      ? 'purple'
+      : 'black';
   }
 
   checkRouterEvent(routerEvent: Event): void {
